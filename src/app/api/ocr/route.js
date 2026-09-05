@@ -7,7 +7,7 @@ const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
 
 export async function POST(request) {
   try {
-    const { image, rawText } = await request.json();
+    const { image, rawText, targetType } = await request.json();
 
     if (!image && !rawText) {
       return NextResponse.json({ error: 'No image or text provided' }, { status: 400 });
@@ -52,6 +52,7 @@ export async function POST(request) {
             base64Data,
             mimeType,
             rawText,
+            targetType,
           }, emitLog);
 
           safeEnqueue(`data: ${JSON.stringify({ type: 'result', data: result })}\n\n`);

@@ -42,6 +42,7 @@ export default function ScanPage() {
   const [items, setItems] = useState([]);
   const [meta, setMeta] = useState({});
   const [documentType, setDocumentType] = useState('');
+  const [scanTarget, setScanTarget] = useState('Bill');
   const [extractionNotes, setExtractionNotes] = useState('');
   const [isScanning, setIsScanning] = useState(false);
   const [saveDate, setSaveDate] = useState(new Date().toISOString().split('T')[0]);
@@ -126,10 +127,10 @@ export default function ScanPage() {
           return parsedResult;
         };
 
-        let dataResult = await fetchAndParseSSE({ image: base64 });
+        let dataResult = await fetchAndParseSSE({ image: base64, targetType: entry.targetType });
 
         const newItems = (dataResult.items || []).map((item) => {
-          let withSn = { ...item, sn: item.sn || String(mergedItems.length + 1) };
+          let withSn = { ...item, sn: item.sn || String(mergedItems.length + 1), docType: entry.targetType };
           return recalcAmount(withSn);
         });
 
@@ -188,6 +189,7 @@ export default function ScanPage() {
       name: file.name,
       preview: URL.createObjectURL(file),
       status: 'pending',
+      targetType: scanTarget,
     }));
 
     setQueue((prev) => {
@@ -259,6 +261,33 @@ export default function ScanPage() {
 
       <div className="layout-grid">
         <div className="main-col">
+          <div className="document-type-selector glass" style={{ padding: '1rem', marginBottom: '1rem', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-color)' }}>Document Type:</span>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <input 
+                type="radio" 
+                name="scanTarget" 
+                value="Bill" 
+                checked={scanTarget === 'Bill'}
+                onChange={(e) => setScanTarget(e.target.value)}
+                disabled={isScanning}
+                style={{ cursor: 'pointer' }}
+              />
+              <span>Bill / Invoice</span>
+            </label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <input 
+                type="radio" 
+                name="scanTarget" 
+                value="Challan" 
+                checked={scanTarget === 'Challan'}
+                onChange={(e) => setScanTarget(e.target.value)}
+                disabled={isScanning}
+                style={{ cursor: 'pointer' }}
+              />
+              <span>Challan</span>
+            </label>
+          </div>
           <ImageUploader onFilesSelected={handleFilesSelected} disabled={isScanning} />
           <ScanQueue queue={queue} onRemove={handleRemoveFromQueue} />
         </div>

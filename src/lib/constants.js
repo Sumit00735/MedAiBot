@@ -1,5 +1,6 @@
 export const HEADERS = [
   'Sn',
+  'Type',
   'Item Name',
   'Qty',
   'Batch',
@@ -10,6 +11,7 @@ export const HEADERS = [
 
 export const HEADER_TO_KEY = {
   Sn: 'sn',
+  Type: 'docType',
   'Item Name': 'productName',
   Qty: 'quantity',
   Batch: 'batchNumber',
