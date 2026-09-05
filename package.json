@@ -1,0 +1,48 @@
+{
+  "name": "medscan-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-powered medicine OCR agent — extracts structured data from invoices, challans, and medicine packaging using Gemini Vision AI",
+  "author": "Sumit Chauhan (https://github.com/Sumit00735)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sumit00735/MedAiBot.git"
+  },
+  "homepage": "https://github.com/Sumit00735/MedAiBot#readme",
+  "bugs": {
+    "url": "https://github.com/Sumit00735/MedAiBot/issues"
+  },
+  "keywords": [
+    "ocr",
+    "medicine",
+    "ai",
+    "gemini",
+    "healthcare",
+    "nextjs",
+    "react",
+    "computer-vision",
+    "invoice-extraction",
+    "pharmaceutical"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@google/genai": "^2.18.0",
+    "lucide-react": "^1.33.0",
+    "next": "16.3.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tesseract.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.2",
+    "tailwindcss": "^4"
+  }
+}
